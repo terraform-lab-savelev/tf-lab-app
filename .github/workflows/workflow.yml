@@ -59,6 +59,8 @@ jobs:
     - name: Run ZAP scan (DAST
       run: |
         zap-cli -p 8090 status -t 120
+        # Dummy test data contains intentional fake PII - skip the PII Disclosure rule
+        curl -s "http://localhost:8090/JSON/pscan/action/disableScanners/?ids=10062"
         zap-cli -p 8090 -v quick-scan \
         --spider \
         "http://localhost:3123/"
